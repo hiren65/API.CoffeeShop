@@ -19,14 +19,12 @@ namespace CoffeeShop.API.Services
         {
             CoffeeOrder CO = new CoffeeOrder();
             CO.OrderId = 1;
-            
-            
             CO.Type = name; // TypeOfCoffee.TypeCoffee.Espresso.ToString();
             CO.message = "Your piping hot coffee is ready";
             CO.prepared = DateTime.Now;
 
-
-
+          
+            
             //throw new NotImplementedException();
             return CO;
         }

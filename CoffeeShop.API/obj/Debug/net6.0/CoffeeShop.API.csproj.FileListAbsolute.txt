@@ -30,3 +30,7 @@ C:\Users\utkar\Desktop\Coffee Shop\CoffeeShop.API\obj\Debug\net6.0\refint\Coffee
 C:\Users\utkar\Desktop\Coffee Shop\CoffeeShop.API\obj\Debug\net6.0\CoffeeShop.API.pdb
 C:\Users\utkar\Desktop\Coffee Shop\CoffeeShop.API\obj\Debug\net6.0\CoffeeShop.API.genruntimeconfig.cache
 C:\Users\utkar\Desktop\Coffee Shop\CoffeeShop.API\obj\Debug\net6.0\ref\CoffeeShop.API.dll
+C:\Users\utkar\Desktop\Coffee Shop\CoffeeShop.API\bin\Debug\net6.0\System.Net.Http.Formatting.dll
+C:\Users\utkar\Desktop\Coffee Shop\CoffeeShop.API\bin\Debug\net6.0\System.Web.Http.dll
+C:\Users\utkar\Desktop\Coffee Shop\CoffeeShop.API\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\utkar\Desktop\Coffee Shop\CoffeeShop.API\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll

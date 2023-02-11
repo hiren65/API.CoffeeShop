@@ -24,13 +24,35 @@ namespace CoffeeShop.API
            builder.Services.AddSwaggerGen(c =>
             {
 
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Coffee Shop", Version = "v1" });
+               // c.SwaggerDoc("v1", new OpenApiInfo { Title = "Coffee Shop", Version = "v1" });
                 c.UseInlineDefinitionsForEnums();
-               
+                c.SwaggerDoc("v1",
+                    new OpenApiInfo
+                    {
+                        Title = "Coffee Shop - V1",
+                        Version = "v1",
+                        Description = "A Coffee Shop API to demo",
+                        TermsOfService = new Uri("http://tempuri.org/terms"),
+                        Contact = new OpenApiContact
+                        {
+                            Name = "Joe Developer",
+                            Email = "joe.developer@tempuri.org"
+                        },
+                        License = new OpenApiLicense
+                        {
+                            Name = "Apache 2.0",
+                            Url = new Uri("http://www.apache.org/licenses/LICENSE-2.0.html")
+                        }
+                    }
+                );
 
             });
-           builder.Services.AddControllers().AddJsonOptions(options =>
+            /*
+             * To display the enums as strings in swagger, you configure the JsonStringEnumConverter, adding the following line in ConfigureServices :
+             */
+            builder.Services.AddControllers().AddJsonOptions(options =>
                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+
             builder.Services.Configure<ApiBehaviorOptions>(options =>
            {
                options.SuppressModelStateInvalidFilter = true;
@@ -47,7 +69,7 @@ namespace CoffeeShop.API
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
+            app.UseHttpsRedirection();
             app.UseAuthorization();
 
 

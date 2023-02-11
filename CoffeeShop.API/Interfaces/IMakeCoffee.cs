@@ -4,6 +4,7 @@ namespace CoffeeShop.API.Interfaces
 {
     public interface IMakeCoffee
     {
-        public TypeOfCoffee  MakeMyCoffee();
+        public CoffeeOrder  MakeMyCoffee(TypeCoffee name);
+        
     }
 }

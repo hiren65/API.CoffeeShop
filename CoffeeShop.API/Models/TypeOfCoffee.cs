@@ -1,14 +1,17 @@
 ﻿namespace CoffeeShop.API.Models
 {
-    public class TypeOfCoffee
-    {
+ 
         public enum TypeCoffee
         {
-            Cappuccino,
-            Espresso,
-            Mocha,
-            Americano,
-            InstantCoffee
+
+            Select = 0,
+            Cappuccino = 1,
+            Espresso = 2,
+            Mocha = 3,
+            Americano = 4,
+            InstantCoffee = 5
+
+
         }
-    }
+    
 }

@@ -21,22 +21,24 @@ namespace CoffeeShop.API
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
+
            builder.Services.AddSwaggerGen(c =>
             {
 
                // c.SwaggerDoc("v1", new OpenApiInfo { Title = "Coffee Shop", Version = "v1" });
                 c.UseInlineDefinitionsForEnums();
+
                 c.SwaggerDoc("v1",
                     new OpenApiInfo
                     {
-                        Title = "Coffee Shop - V1",
+                        Title = "Coffee Shop",
                         Version = "v1",
                         Description = "A Coffee Shop API to demo",
                         TermsOfService = new Uri("http://tempuri.org/terms"),
                         Contact = new OpenApiContact
                         {
-                            Name = "Joe Developer",
-                            Email = "joe.developer@tempuri.org"
+                            Name = "Hirenkumar Developer",
+                            Email = "hirenkumar@com.au"
                         },
                         License = new OpenApiLicense
                         {

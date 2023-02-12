@@ -58,14 +58,15 @@ namespace CoffeeShop.API.Controllers
                 return NoContent();
             }
 
-            if (cc == Convert.ToDateTime( "2023-02-11").Date )
+            if (cc == Convert.ToDateTime( "2023-02-12").Date )
             {
                 order.message = "418 I’m a teapot";
                 
                 //return new CoffeeOrder() { message = "myContent", OrderId = 415 };
-                SaveData sd = new SaveData(_configuration,_db);
-                var str = sd.SaveMyData(order);
-                return NotFound(order);
+               // SaveData sd = new SaveData(_configuration,_db);
+                //var str = sd.SaveMyData(order);
+                return StatusCode(StatusCodes.Status418ImATeapot, new { message = $"418 Service Unavailable {order}" });
+                //return NotFound(order);
 
             }
 

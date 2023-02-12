@@ -4,9 +4,11 @@
 using CoffeeShop.API.Interfaces;
 using CoffeeShop.API.Models;
 using CoffeeShop.API.Services;
+using CoffeeShop.API.Utility;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 //https://discoverdot.net/projects/swashbuckle-aspnetcore
 
 namespace CoffeeShop.API.Controllers
@@ -29,9 +31,7 @@ namespace CoffeeShop.API.Controllers
         [HttpGet("/brew_coffee/{Select}")]
         public  ActionResult< CoffeeOrder>  Brew_coffee(TypeCoffee Select)
         {
-
             
-           
             CoffeeOrder order = new CoffeeOrder();
             
 
@@ -105,6 +105,38 @@ namespace CoffeeShop.API.Controllers
 
             return Ok(order); 
         }
+        // Weather API
+        [HttpGet("[action]")]
+        public async Task<IActionResult> City()
+        {
+            using (var client = new HttpClient())
+            {
+                try
+                {
+                    //https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid=21b9eb015ca9994622a38c846372b13d
+                    client.BaseAddress = new Uri("http://api.openweathermap.org");
+                    var response = await client.GetAsync($"/data/2.5/weather?lat=-33.8688&lon=151.2093&appid=21b9eb015ca9994622a38c846372b13d&units=metric");
+                    response.EnsureSuccessStatusCode();
+
+                    var stringResult = await response.Content.ReadAsStringAsync();
+                    var rawWeather = JsonConvert.DeserializeObject<OpenWeatherResponse>(stringResult);
+                  
+                    
+                    return Ok(new
+                    {
+                        Temp = rawWeather.Main.Temp,
+                        Summary = string.Join(",", rawWeather.Weather.Select(x => x.Main)),
+                        City = rawWeather.Name
+                    });
+                }
+                catch (HttpRequestException httpRequestException)
+                {
+                    return BadRequest($"Error getting weather from OpenWeather: {httpRequestException.Message}");
+                }
+            }
+        }
+
+        // get Temp
 
 
     }

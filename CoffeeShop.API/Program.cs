@@ -3,6 +3,7 @@ using CoffeeShop.API.Interfaces;
 using CoffeeShop.API.Models;
 using CoffeeShop.API.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 
@@ -10,15 +11,20 @@ namespace CoffeeShop.API
 {
     public class Program
     {
+        
         public static void Main(string[] args)
         {
+           
             var builder = WebApplication.CreateBuilder(args);
-
+            var conStr = builder.Configuration.GetSection("ConnectionStrings").GetSection("DBConnect");
+            builder.Services.AddDbContext<CoffeeContext>(options => options.UseSqlServer(conStr.Value));
             // Add services to the container.
             builder.Services.AddScoped<IMakeCoffee, CoffeeMachine>();                
 
 
             builder.Services.AddControllers();
+           
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
 
@@ -59,7 +65,8 @@ namespace CoffeeShop.API
            {
                options.SuppressModelStateInvalidFilter = true;
            });
-
+            /*var conStr = builder.Configuration.GetSection("ConnectionStrings").GetSection("DBConnect");
+            builder.Services.AddDbContext<CoffeeContext>(options => options.UseSqlServer(conStr.Value));*/
 
             // builder.Services.AddSwaggerGen();
 

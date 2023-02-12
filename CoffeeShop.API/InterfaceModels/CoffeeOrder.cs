@@ -12,11 +12,11 @@ namespace CoffeeShop.API.Models
         [Required]
         [JsonConverter(typeof(JsonStringEnumConverter))]
         
-        public  TypeCoffee ? Type { get; set; }      // = TypeOfCoffee.TypeCoffee.Espresso.ToString();
+        public  TypeCoffee ? Type { get; set; }       = TypeCoffee.Espresso;
         //public SizeEnum Size { get; set; }
         public string? message { get; set; }
 
-       // public int? Repeat { get; set; } = 0;
+        public int? Repeat { get; set; } = 0;
         public DateTime? prepared { get; set; }
 
     }

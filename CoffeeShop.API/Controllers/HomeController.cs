@@ -6,6 +6,7 @@ using CoffeeShop.API.Models;
 using CoffeeShop.API.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 //https://discoverdot.net/projects/swashbuckle-aspnetcore
 
 namespace CoffeeShop.API.Controllers
@@ -16,11 +17,13 @@ namespace CoffeeShop.API.Controllers
     public class HomeController : ControllerBase
     {
         public IMakeCoffee _iMakeCoffee;
-        
+        IConfiguration _configuration;
+        public CoffeeContext _db;
 
-        public  HomeController(IMakeCoffee iMakeCoffee )
+        public  HomeController(IMakeCoffee iMakeCoffee,CoffeeContext db )
         {
             _iMakeCoffee = iMakeCoffee;
+            _db = db;
         }
         [ProducesResponseType(400)]
         [HttpGet("/brew_coffee/{Select}")]
@@ -34,6 +37,20 @@ namespace CoffeeShop.API.Controllers
 
             order = _iMakeCoffee.MakeMyCoffee(Select);
             var cc = order.prepared.Value.Date;
+           
+            var ccList = _db.CustOrders.Select(m => m.Repeat).ToList();
+            int last = 0;
+            try
+            {
+                last = Convert.ToInt32(ccList.LastOrDefault());
+            }
+            catch (Exception e)
+            {
+
+            }
+
+
+
             if (order.Type.ToString() == "Select")
             {
                 order.message = "Coffee Type Not Selected";
@@ -41,14 +58,46 @@ namespace CoffeeShop.API.Controllers
                 return NoContent();
             }
 
-            if (cc == Convert.ToDateTime( "2023-02-12").Date )
+            if (cc == Convert.ToDateTime( "2023-02-11").Date )
             {
                 order.message = "418 I’m a teapot";
-                order.Type = null;
+                
                 //return new CoffeeOrder() { message = "myContent", OrderId = 415 };
+                SaveData sd = new SaveData(_configuration,_db);
+                var str = sd.SaveMyData(order);
                 return NotFound(order);
 
             }
+
+            if (last >= 5)
+            {
+                SaveData sd = new SaveData(_configuration, _db);
+
+               
+                
+                order.message = "503 Service Unavailable";
+                
+                order.prepared = DateTime.Now;
+                order.Repeat = 0;
+                var str = sd.SaveMyData(order);
+
+
+                order.message = "";
+                order.Type = null;
+                order.prepared = null;
+                order.Repeat = last;
+
+
+                return   StatusCode(StatusCodes.Status503ServiceUnavailable, new { message = $"503 Service Unavailable {order}" });
+               // return NotFound("Customer doesn't exist");
+            }
+            else
+            {
+                SaveData sd1 = new SaveData(_configuration, _db);
+                var str1 = sd1.SaveMyData(order);
+            }
+
+           
 
             return Ok(order); 
         }

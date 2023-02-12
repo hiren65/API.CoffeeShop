@@ -50,15 +50,17 @@ namespace CoffeeShop.API.Controllers
             }
 
 
-
+            //If No Selection
             if (order.Type.ToString() == "Select")
             {
                 order.message = "Coffee Type Not Selected";
 
                 return NoContent();
             }
+            //if 1 April Status 418
+            var currntYear = DateTime.Now.Year;
 
-            if (cc == Convert.ToDateTime( "2023-02-12").Date )
+            if (cc == Convert.ToDateTime($"{currntYear}-02-12").Date )
             {
                 order.message = "418 I’m a teapot";
                 
@@ -69,7 +71,7 @@ namespace CoffeeShop.API.Controllers
                 //return NotFound(order);
 
             }
-
+            // If More than 5 times Requested Status 503
             if (last >= 5)
             {
                 SaveData sd = new SaveData(_configuration, _db);
@@ -94,6 +96,7 @@ namespace CoffeeShop.API.Controllers
             }
             else
             {
+                // Successfull Request 
                 SaveData sd1 = new SaveData(_configuration, _db);
                 var str1 = sd1.SaveMyData(order);
             }

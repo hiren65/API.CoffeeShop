@@ -33,7 +33,7 @@ namespace CoffeeShop.API.Services
                 
             }
             int cc = 0;
-            if (last >= 5)
+            if (last >= 4)
             {
                 co.Repeat = 0;
                 cc = 0;

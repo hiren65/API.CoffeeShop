@@ -73,8 +73,8 @@ namespace CoffeeShop.API.Controllers
                 //return NotFound(order);
 
             }
-            // If More than 5 times Requested Status 503
-            if (last >= 5)
+            // If on 5th times Requested Status 503
+            if (last >= 4)
             {
                 SaveData sd = new SaveData(_configuration, _db);
 
@@ -101,6 +101,7 @@ namespace CoffeeShop.API.Controllers
                 // Successfull Request 
                 SaveData sd1 = new SaveData(_configuration, _db);
                 var str1 = sd1.SaveMyData(order);
+                order.Repeat = last + 1;
                 order.OrderId = lastId + 1;
             }
 

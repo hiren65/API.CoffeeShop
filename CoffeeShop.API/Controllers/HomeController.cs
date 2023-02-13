@@ -28,7 +28,7 @@ namespace CoffeeShop.API.Controllers
             _db = db;
         }
         [ProducesResponseType(400)]
-        [HttpGet("/brew_coffee/{Select}")]
+        [HttpGet("/brew-coffee/{Select}")]
         public  ActionResult< CoffeeOrder>  Brew_coffee(TypeCoffee Select)
         {
             
@@ -57,6 +57,8 @@ namespace CoffeeShop.API.Controllers
 
                 return NoContent();
             }
+
+
             //if 1 April Status 418
             var currntYear = DateTime.Now.Year;
 
@@ -96,6 +98,14 @@ namespace CoffeeShop.API.Controllers
             }
             else
             {
+                MyWeather mc = new MyWeather();
+                var myTemp = mc.Getdata();
+                float conTemp = (float)Convert.ToDecimal(myTemp.Result.Temp);
+                //If Temperature more than 30 C Location Sydney
+                if (conTemp > 30)
+                {
+                    order.message = "Your refreshing iced coffee is ready";
+                }
                 // Successfull Request 
                 SaveData sd1 = new SaveData(_configuration, _db);
                 var str1 = sd1.SaveMyData(order);

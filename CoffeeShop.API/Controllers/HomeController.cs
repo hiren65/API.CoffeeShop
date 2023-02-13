@@ -39,10 +39,12 @@ namespace CoffeeShop.API.Controllers
             var cc = order.prepared.Value.Date;
            
             var ccList = _db.CustOrders.Select(m => m.Repeat).ToList();
-            int last = 0;
+            var ccListId = _db.CustOrders.Select(m => m.OrderId).ToList();
+            int last = 0;int lastId = 0;
             try
             {
                 last = Convert.ToInt32(ccList.LastOrDefault());
+                lastId = Convert.ToInt32(ccListId.LastOrDefault());
             }
             catch (Exception e)
             {
@@ -99,6 +101,7 @@ namespace CoffeeShop.API.Controllers
                 // Successfull Request 
                 SaveData sd1 = new SaveData(_configuration, _db);
                 var str1 = sd1.SaveMyData(order);
+                order.OrderId = lastId + 1;
             }
 
            

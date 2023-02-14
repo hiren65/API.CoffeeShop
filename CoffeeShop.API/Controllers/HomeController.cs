@@ -26,7 +26,7 @@ namespace CoffeeShop.API.Controllers
             _db = db;
         }
         [ProducesResponseType(400)]
-        [HttpPost("/brew_coffee/{Select}")]
+        [HttpPost("/brew-coffee/{Select}")]
         public  ActionResult< CoffeeOrder>  Brew_coffee(TypeCoffee Select)
         {
 
